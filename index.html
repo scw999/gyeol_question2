@@ -46,6 +46,9 @@
         <header class="text-center mb-8 md:mb-12">
             <h1 class="text-3xl md:text-4xl font-bold text-gray-800">결혼 가치관 매칭 테스트</h1>
             <p class="mt-2 text-gray-600">서로의 가치관을 알아보고 매칭률을 확인해보세요!</p>
+            <p class="mt-4 text-sm text-gray-500 max-w-2xl mx-auto">
+                본 테스트는 당신의 성향을 <strong>Action (행동 유형)</strong>, <strong>Emotion (감정 및 관계 유형)</strong>, <strong>Thinking (가치관 및 생각 유형)</strong> 세 가지 차원으로 나누어 분석합니다. 이를 통해 자신과 상대방의 핵심적인 가치관을 더 깊이 이해할 수 있습니다.
+            </p>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -97,9 +100,9 @@
 
     <script>
         const questions = [
-            // --- 1) 파충류의 뇌: 본능, 생존, 욕구 ---
+            // --- 1) Action (나의 행동 유형) ---
             {
-                id: 'q1', brainType: '파충류의 뇌', gender: 'common', text: '인스타그램 스토리에 사진을 올린다면 어떤 사진을 선택하시겠어요?',
+                id: 'q1', brainType: 'Action (나의 행동 유형)', gender: 'common', text: '인스타그램 스토리에 사진을 올린다면 어떤 사진을 선택하시겠어요?',
                 options: [
                     { text: '아름다운 자연경관에서 찍은 내 사진 (경험중시형)', tag: '#경험중시형' },
                     { text: '미슐랭 5스타 고급 레스토랑의 음식 사진 (성취지향형)', tag: '#성취지향형' },
@@ -108,7 +111,7 @@
                 ]
             },
             {
-                id: 'q2', brainType: '파충류의 뇌', gender: 'common', text: '선호하는 운동 스타일은 무엇인가요?',
+                id: 'q2', brainType: 'Action (나의 행동 유형)', gender: 'common', text: '선호하는 운동 스타일은 무엇인가요?',
                 options: [
                     { text: '혼자 집중하며 즐기는 운동 (러닝, 헬스 등) (자기계발형)', tag: '#자기계발형' },
                     { text: '파트너나 팀과 함께하는 운동 (테니스, 축구 등) (활동적인)', tag: '#활동적인' },
@@ -116,7 +119,7 @@
                 ]
             },
             {
-                id: 'q3', brainType: '파충류의 뇌', gender: 'common', text: '다음 중 당신에게 가장 중요한 욕구 한 가지를 꼽는다면 무엇인가요?',
+                id: 'q3', brainType: 'Action (나의 행동 유형)', gender: 'common', text: '다음 중 당신에게 가장 중요한 욕구 한 가지를 꼽는다면 무엇인가요?',
                 options: [
                     { text: '성욕 (삶의 활력과 즐거움) (본능중시)', tag: '#본능중시' },
                     { text: '수면욕 (안정과 건강) (휴식중시)', tag: '#휴식중시' },
@@ -124,9 +127,9 @@
                     { text: '물질욕 (성공과 보상) (성취지향형)', tag: '#성취지향형' }
                 ]
             },
-            // --- 2) 포유류의 뇌: 감정, 사회성, 관계 ---
+            // --- 2) Emotion (나의 감정 및 관계 유형) ---
             {
-                id: 'q4', brainType: '포유류의 뇌', gender: 'female', text: '어떤 프러포즈를 꿈꾸시나요?',
+                id: 'q4', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'female', text: '어떤 프러포즈를 꿈꾸시나요?',
                 options: [
                     { text: '최고급 레스토랑에서의 로맨틱한 프러포즈 (낭만주의형)', tag: '#낭만주의형' },
                     { text: '수많은 관중 앞에서의 깜짝 프러포즈 (이벤트선호)', tag: '#이벤트선호' },
@@ -135,7 +138,7 @@
                 ]
             },
             {
-                id: 'q5', brainType: '포유류의 뇌', gender: 'female', text: '남자친구가 했을 때 가장 설레는 행동은 무엇인가요?',
+                id: 'q5', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'female', text: '남자친구가 했을 때 가장 설레는 행동은 무엇인가요?',
                 options: [
                     { text: '사람 많은 곳에서 내 손을 꽉 잡아줄 때 (스킨십중시)', tag: '#스킨십중시' },
                     { text: '내가 했던 말을 기억하고 세심하게 챙겨줄 때 (세심함중시)', tag: '#세심함중시' },
@@ -144,7 +147,7 @@
                 ]
             },
             {
-                id: 'q6', brainType: '포유류의 뇌', gender: 'female', text: '연봉 7천만 원의 소개팅 남성이 차에서 내립니다. 당신이 가장 호감을 느낄 차는 무엇인가요?',
+                id: 'q6', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'female', text: '연봉 7천만 원의 소개팅 남성이 차에서 내립니다. 당신이 가장 호감을 느낄 차는 무엇인가요?',
                 options: [
                     { text: '현실적이고 합리적인 선택, 아반떼 (현실주의형)', tag: '#현실주의형' },
                     { text: '개성과 운전의 재미를 중시하는, 아반떼 N (개성중시)', tag: '#개성중시' },
@@ -153,7 +156,7 @@
                 ]
             },
             {
-                id: 'q7', brainType: '포유류의 뇌', gender: 'male', text: '100일 기념일에 어떤 데이트를 하고 싶으신가요?',
+                id: 'q7', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'male', text: '100일 기념일에 어떤 데이트를 하고 싶으신가요?',
                 options: [
                     { text: '처음 만났던 장소에서 나누는 둘만의 대화 (관계중심형)', tag: '#관계중심형' },
                     { text: '멋진 뷰의 레스토랑에서 즐기는 근사한 식사 (분위기중시)', tag: '#분위기중시' },
@@ -162,7 +165,7 @@
                 ]
             },
             {
-                id: 'q8', brainType: '포유류의 뇌', gender: 'male', text: '연인과 다투었을 때, 주로 어떻게 화해를 시도하시나요?',
+                id: 'q8', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'male', text: '연인과 다투었을 때, 주로 어떻게 화해를 시도하시나요?',
                 options: [
                     { text: '일단 시간을 갖고 서로 생각할 시간을 준다 (논리적대화)', tag: '#논리적대화' },
                     { text: '갈등의 원인에 대해 솔직하게 대화로 푼다 (문제해결형)', tag: '#문제해결형' },
@@ -171,7 +174,7 @@
                 ]
             },
             {
-                id: 'q9', brainType: '포유류의 뇌', gender: 'male', text: '원하는 결혼식은 어떤 모습인가요?',
+                id: 'q9', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'male', text: '원하는 결혼식은 어떤 모습인가요?',
                 options: [
                     { text: '많은 하객의 축복 속 화려한 호텔 웨딩 (형식중시)', tag: '#형식중시' },
                     { text: '자연과 함께하는 낭만적인 야외 웨딩 (낭만주의형)', tag: '#낭만주의형' },
@@ -180,7 +183,7 @@
                 ]
             },
             {
-                id: 'q17', brainType: '포유류의 뇌', gender: 'common', text: '연인의 친구가 내 연인의 깻잎을 떼주는 것을 보았습니다. 당신의 생각은?',
+                id: 'q17', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'common', text: '연인의 친구가 내 연인의 깻잎을 떼주는 것을 보았습니다. 당신의 생각은?',
                 options: [
                     { text: '아무렇지 않다. 그럴 수 있다. (쿨한연애)', tag: '#쿨한연애' },
                     { text: '기분은 좀 그렇지만 티 내지 않는다. (감정조절형)', tag: '#감정조절형' },
@@ -189,7 +192,7 @@
                 ]
             },
             {
-                id: 'q18', brainType: '포유류의 뇌', gender: 'common', text: '선호하는 반려동물이 있나요?',
+                id: 'q18', brainType: 'Emotion (나의 감정 및 관계 유형)', gender: 'common', text: '선호하는 반려동물이 있나요?',
                 options: [
                     { text: '활동적이고 애교 많은 강아지가 좋다. (활동적인)', tag: '#활동적인' },
                     { text: '독립적이고 차분한 고양이가 좋다. (차분한)', tag: '#차분한' },
@@ -197,9 +200,9 @@
                     { text: '반려동물을 키우는 것은 선호하지 않는다. (개인주의형)', tag: '#개인주의형' }
                 ]
             },
-             // --- 3) 영장류의 뇌: 이성, 논리, 가치관 ---
+             // --- 3) Thinking (나의 가치관 및 생각 유형) ---
             {
-                id: 'q10', brainType: '영장류의 뇌', gender: 'common', text: '길을 가다 사람이 쓰러져 있는 것을 발견했습니다. 당신의 첫 번째 행동은 무엇인가요?',
+                id: 'q10', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '길을 가다 사람이 쓰러져 있는 것을 발견했습니다. 당신의 첫 번째 행동은 무엇인가요?',
                 options: [
                     { text: '즉시 119에 신고하여 전문가의 도움을 요청한다 (이성적판단)', tag: '#이성적판단' },
                     { text: '주변 사람들에게 알려 함께 돕는다 (공동체주의)', tag: '#공동체주의' },
@@ -207,7 +210,7 @@
                 ]
             },
             {
-                id: 'q11', brainType: '영장류의 뇌', gender: 'common', text: '성공한 친구가 확실한 투자처라며 주식 정보를 주었습니다. 어떻게 하시겠어요?',
+                id: 'q11', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '성공한 친구가 확실한 투자처라며 주식 정보를 주었습니다. 어떻게 하시겠어요?',
                 options: [
                     { text: '친구를 믿고 \'영끌\' 대출을 해서 투자한다 (과감한투자)', tag: '#과감한투자' },
                     { text: '현재 보유한 현금 전부를 투자한다 (공격적투자)', tag: '#공격적투자' },
@@ -216,7 +219,7 @@
                 ]
             },
              {
-                id: 'q19', brainType: '영장류의 뇌', gender: 'common', text: '연인과 갈등이 생겼을 때, 당신은 어떻게 해결하나요?',
+                id: 'q19', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '연인과 갈등이 생겼을 때, 당신은 어떻게 해결하나요?',
                 options: [
                     { text: '감정이 가라앉을 때까지 기다렸다가 차분히 대화한다. (논리적대화)', tag: '#논리적대화' },
                     { text: '갈등이 길어지는게 싫어 빨리 사과하고 넘어간다. (갈등회피형)', tag: '#갈등회피형' },
@@ -225,7 +228,7 @@
                 ]
             },
             {
-                id: 'q20', brainType: '영장류의 뇌', gender: 'common', text: '애정을 표현하는 당신의 방식은?',
+                id: 'q20', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '애정을 표현하는 당신의 방식은?',
                 options: [
                     { text: '말보다는 행동으로 보여주는 편이다. (선물, 챙겨주기 등) (행동파)', tag: '#행동파' },
                     { text: '"사랑해", "보고싶어" 등 말로 자주 표현한다. (언어적표현)', tag: '#언어적표현' },
@@ -234,7 +237,7 @@
                 ]
             },
              {
-                id: 'q21', brainType: '영장류의 뇌', gender: 'common', text: '혼자 살 집을 구한다면, 어떤 집을 선택하시겠어요?',
+                id: 'q21', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '혼자 살 집을 구한다면, 어떤 집을 선택하시겠어요?',
                 options: [
                     { text: '조금 낡아도 회사와 가까운 빌라 (직주근접) (실용주의형)', tag: '#실용주의형' },
                     { text: '회사는 멀어도 깔끔하고 예쁜 복층 오피스텔 (삶의 질) (심미주의형)', tag: '#심미주의형' },
@@ -243,7 +246,7 @@
                 ]
             },
             {
-                id: 'q12', brainType: '영장류의 뇌', gender: 'common', text: '이상적인 자녀 수는 몇 명인가요?',
+                id: 'q12', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '이상적인 자녀 수는 몇 명인가요?',
                 options: [
                     { text: '딩크(DINK)족, 자녀 없이 둘만의 삶 (개인주의형)', tag: '#개인주의형' },
                     { text: '한 명의 자녀에게 집중 (계획형)', tag: '#계획형' },
@@ -252,7 +255,7 @@
                 ]
             },
             {
-                id: 'q13', brainType: '영장류의 뇌', gender: 'common', text: '선호하는 부부의 경제 활동 형태는 무엇인가요?',
+                id: 'q13', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '선호하는 부부의 경제 활동 형태는 무엇인가요?',
                 options: [
                     { text: '각자의 커리어를 존중하는 맞벌이 (성장지향형)', tag: '#성장지향형' },
                     { text: '상황에 따라 유연하게, 가능하면 맞벌이 (상황적응형)', tag: '#상황적응형' },
@@ -261,7 +264,7 @@
                 ]
             },
             {
-                id: 'q14', brainType: '영장류의 뇌', gender: 'common', text: '배우자의 커리어를 위해 어떤 방식으로 서포트하고 싶으신가요?',
+                id: 'q14', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '배우자의 커리어를 위해 어떤 방식으로 서포트하고 싶으신가요?',
                 options: [
                     { text: '안정적인 가정 환경을 만들어주는 방식 (내조/외조) (헌신형)', tag: '#헌신형' },
                     { text: '사회적 성공을 돕는 방식 (외조/내조) (동반성장)', tag: '#동반성장' },
@@ -270,7 +273,7 @@
                 ]
             },
             {
-                id: 'q15', brainType: '영장류의 뇌', gender: 'common', text: '당신이 결혼을 원하는 가장 큰 이유는 무엇인가요?',
+                id: 'q15', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '당신이 결혼을 원하는 가장 큰 이유는 무엇인가요?',
                 options: [
                     { text: '정서적 안정감과 평생의 동반자를 얻기 위해 (안정지향형)', tag: '#안정지향형' },
                     { text: '사랑하는 사람과 가정을 꾸리기 위해 (가정중심형)', tag: '#가정중심형' },
@@ -279,7 +282,7 @@
                 ]
             },
             {
-                id: 'q16', brainType: '영장류의 뇌', gender: 'common', text: '신혼집을 구한다면, 당신의 우선순위는 어디에 있나요?',
+                id: 'q16', brainType: 'Thinking (나의 가치관 및 생각 유형)', gender: 'common', text: '신혼집을 구한다면, 당신의 우선순위는 어디에 있나요?',
                 options: [
                     { text: '미래 가치를 보고 서울 중심지 아파트 (미래가치중시)', tag: '#미래가치중시' },
                     { text: '현재의 안정을 위해 경기도 신축 아파트 (현재안정중시)', tag: '#현재안정중시' },
@@ -404,12 +407,12 @@
             // Display tags
             maleTagsEl.innerHTML = Object.entries(maleTags)
                 .sort((a, b) => b[1] - a[1])
-                .map(([tag, count]) => `<span class="result-tag font-medium py-1 px-3 rounded-full text-sm">${tag} x${count}</span>`)
+                .map(([tag, count]) => `<span class="result-tag font-medium py-1 px-3 rounded-full text-sm">${tag}${count > 1 ? ` x${count}` : ''}</span>`)
                 .join('');
             
             femaleTagsEl.innerHTML = Object.entries(femaleTags)
                 .sort((a, b) => b[1] - a[1])
-                .map(([tag, count]) => `<span class="result-tag font-medium py-1 px-3 rounded-full text-sm">${tag} x${count}</span>`)
+                .map(([tag, count]) => `<span class="result-tag font-medium py-1 px-3 rounded-full text-sm">${tag}${count > 1 ? ` x${count}` : ''}</span>`)
                 .join('');
 
             resultsContainer.classList.remove('hidden');
@@ -423,4 +426,5 @@
     </script>
 </body>
 </html>
+
 
