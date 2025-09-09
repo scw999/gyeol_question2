@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결혼 가치관 매칭 테스트</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.comcom/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -270,6 +270,16 @@
             }
         ];
 
+        // --- NEW: 성향 그룹 정의 ---
+        const tagGroups = {
+            EMOTIONAL_CONNECT: ['#낭만주의형', '#관계중심형', '#감성형', '#세심함중시', '#스킨십중시', '#정서적지지', '#배려형', '#감정표현형', '#긍정적강화'],
+            PRACTICAL_RATIONAL: ['#실용주의형', '#원칙주의형', '#현실주의형', '#이성적판단', '#논리적대화', '#문제해결형', '#효율중시형', '#피드백제공', '#미래가치중시'],
+            STABILITY_ORIENTED: ['#안정지향형', '#안정적투자', '#계획형', '#집순이/집돌이', '#보수적가치관', '#현재안정중시', '#전통적가치관'],
+            ACTIVE_EXPERIENCE: ['#경험중시형', '#성취지향형', '#사교형', '#활동적인', '#모험추구형', '#이벤트선호', '#과감한투자', '#공격적투자'],
+            AUTONOMY_FLEXIBILITY: ['#개인주의형', '#쿨한연애', '#자유로운표현', '#사생활중시', '#자유추구형', '#독립성중시', '#자율형', '#갈등회피형'],
+            ADAPTIVE_BALANCED: ['#상황적응형', '#감정조절형', '#편리성추구']
+        };
+
         const maleQuestionsContainer = document.getElementById('male-questions');
         const femaleQuestionsContainer = document.getElementById('female-questions');
         const calculateBtn = document.getElementById('calculate-btn');
@@ -280,6 +290,16 @@
         const femaleTagsEl = document.getElementById('female-tags');
         const warningMessage = document.getElementById('warning-message');
         const interpretationTextEl = document.getElementById('interpretation-text');
+
+        // --- NEW: 태그가 어느 그룹에 속하는지 찾는 함수 ---
+        function findTagGroup(tag) {
+            for (const group in tagGroups) {
+                if (tagGroups[group].includes(tag)) {
+                    return group;
+                }
+            }
+            return null;
+        }
 
         function createQuestionHTML(q, gender) {
             const optionsHTML = q.options.map((opt, index) => `
@@ -336,26 +356,37 @@
 
             warningMessage.classList.add('hidden');
             
-            let matchCount = 0;
+            let totalScore = 0; // 점수 계산을 위한 변수
             const maleTags = {};
             const femaleTags = {};
 
             questions.forEach(q => {
-                let maleAnswerNode = document.querySelector(`input[name="${q.id}-male"]:checked`);
-                let femaleAnswerNode = document.querySelector(`input[name="${q.id}-female"]:checked`);
+                const maleAnswerNode = document.querySelector(`input[name="${q.id}-male"]:checked`);
+                const femaleAnswerNode = document.querySelector(`input[name="${q.id}-female"]:checked`);
 
-                if (maleAnswerNode.value === femaleAnswerNode.value) {
-                    matchCount++;
-                }
-                
                 const maleTag = maleAnswerNode.dataset.tag;
-                maleTags[maleTag] = (maleTags[maleTag] || 0) + 1;
-                
                 const femaleTag = femaleAnswerNode.dataset.tag;
+                
+                // --- SCORING LOGIC CHANGE START ---
+                // 1. 완벽히 일치하는 경우: 1점
+                if (maleAnswerNode.value === femaleAnswerNode.value) {
+                    totalScore += 1;
+                } else {
+                    // 2. 답변은 다르지만, 성향 그룹이 같은 경우: 0.5점
+                    const maleGroup = findTagGroup(maleTag);
+                    const femaleGroup = findTagGroup(femaleTag);
+                    if (maleGroup && maleGroup === femaleGroup) {
+                        totalScore += 0.5;
+                    }
+                    // 3. 성향 그룹도 다르면 0점 (아무것도 더하지 않음)
+                }
+                // --- SCORING LOGIC CHANGE END ---
+                
+                maleTags[maleTag] = (maleTags[maleTag] || 0) + 1;
                 femaleTags[femaleTag] = (femaleTags[femaleTag] || 0) + 1;
             });
 
-            const score = Math.round((matchCount / totalQuestions) * 100);
+            const score = Math.round((totalScore / totalQuestions) * 100);
             matchingScoreEl.textContent = `${score}%`;
             setTimeout(() => {
                  scoreBarEl.style.width = `${score}%`;
@@ -375,7 +406,7 @@
             // Interpretation
             let interpretationHTML = '';
             if (score >= 80) {
-                interpretationHTML = `<strong>환상의 커플!</strong><br>두 분은 핵심적인 가치관과 라이프스타일이 매우 유사합니다. 서로를 깊이 이해하고 존중하며 안정적이고 조화로운 관계를 만들어갈 가능성이 매우 높습니다. 지금처럼 서로의 생각과 감정을 공유하며 사랑을 키워나가세요!`;
+                interpretationHTML = `<strong>환상의 커플! 찰떡궁합!</strong><br>두 분은 핵심적인 가치관과 라이프스타일이 매우 유사합니다. 서로를 깊이 이해하고 존중하며 안정적이고 조화로운 관계를 만들어갈 가능성이 매우 높습니다. 지금처럼 서로의 생각과 감정을 공유하며 사랑을 키워나가세요!`;
             } else if (score >= 50) {
                 interpretationHTML = `<strong>서로를 알아가는 매력적인 커플!</strong><br>두 분은 비슷한 점도 많지만, 서로 다른 매력도 가지고 있네요! 이 차이점은 갈등의 원인이 되기보다, 서로를 더 넓게 이해하고 함께 성장할 수 있는 좋은 기회가 될 것입니다. 서로의 다른 점에 대해 열린 마음으로 대화해보세요.`;
             } else {
