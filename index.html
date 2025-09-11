@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결혼 가치관 매칭 테스트</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.comcom/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -37,6 +37,12 @@
             border-color: #f9a8d4; /* border-pink-300 */
             color: #9d174d; /* text-pink-800 */
         }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -48,6 +54,24 @@
             <p class="mt-4 text-sm text-gray-500 max-w-2xl mx-auto">
                 본 테스트는 당신의 성향을 <strong>Action (행동 유형)</strong>, <strong>Emotion (감정 및 관계 유형)</strong>, <strong>Thinking (가치관 및 생각 유형)</strong> 세 가지 차원으로 나누어 분석합니다. 이를 통해 자신과 상대방의 핵심적인 가치관을 더 깊이 이해할 수 있습니다.
             </p>
+
+            <!-- 점수 계산 방식 설명 추가 -->
+            <details class="mt-4 max-w-2xl mx-auto bg-sky-50 p-3 rounded-lg text-sm text-gray-700">
+                <summary class="font-semibold cursor-pointer text-sky-800">💡 점수는 어떻게 계산되나요?</summary>
+                <div class="mt-2 text-left p-2 bg-white rounded">
+                    <p class="mb-2">
+                        이 테스트는 단순히 답변이 똑같을 때만(1점) 점수를 주지 않습니다. 답변이 다르더라도, 두 분의 선택이 비슷한 **'성향 그룹'**에 속한다면 부분 점수(0.5점)를 부여하여 더 유연하게 매칭률을 계산합니다. 이를 통해 서로의 가치관이 '어떤 결'에서 비슷한지 알 수 있습니다.
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-xs">
+                        <li><strong>감성/관계 중심:</strong> #낭만주의형, #관계중심형, #감성형, #세심함중시, #스킨십중시, #정서적지지, #배려형, #감정표현형, #긍정적강화</li>
+                        <li><strong>실용/이성 중심:</strong> #실용주의형, #원칙주의형, #현실주의형, #이성적판단, #논리적대화, #문제해결형, #효율중시형, #피드백제공, #미래가치중시</li>
+                        <li><strong>안정 지향:</strong> #안정지향형, #안정적투자, #계획형, #집순이/집돌이, #보수적가치관, #현재안정중시, #전통적가치관</li>
+                        <li><strong>활동/경험 지향:</strong> #경험중시형, #성취지향형, #사교형, #활동적인, #모험추구형, #이벤트선호, #과감한투자, #공격적투자</li>
+                        <li><strong>자율/유연 지향:</strong> #개인주의형, #쿨한연애, #자유로운표현, #사생활중시, #자유추구형, #독립성중시, #자율형, #갈등회피형</li>
+                         <li><strong>상황적응/균형:</strong> #상황적응형, #감정조절형, #편리성추구</li>
+                    </ul>
+                </div>
+            </details>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -270,7 +294,6 @@
             }
         ];
 
-        // --- NEW: 성향 그룹 정의 ---
         const tagGroups = {
             EMOTIONAL_CONNECT: ['#낭만주의형', '#관계중심형', '#감성형', '#세심함중시', '#스킨십중시', '#정서적지지', '#배려형', '#감정표현형', '#긍정적강화'],
             PRACTICAL_RATIONAL: ['#실용주의형', '#원칙주의형', '#현실주의형', '#이성적판단', '#논리적대화', '#문제해결형', '#효율중시형', '#피드백제공', '#미래가치중시'],
@@ -291,7 +314,6 @@
         const warningMessage = document.getElementById('warning-message');
         const interpretationTextEl = document.getElementById('interpretation-text');
 
-        // --- NEW: 태그가 어느 그룹에 속하는지 찾는 함수 ---
         function findTagGroup(tag) {
             for (const group in tagGroups) {
                 if (tagGroups[group].includes(tag)) {
@@ -356,7 +378,7 @@
 
             warningMessage.classList.add('hidden');
             
-            let totalScore = 0; // 점수 계산을 위한 변수
+            let totalScore = 0; 
             const maleTags = {};
             const femaleTags = {};
 
@@ -367,20 +389,15 @@
                 const maleTag = maleAnswerNode.dataset.tag;
                 const femaleTag = femaleAnswerNode.dataset.tag;
                 
-                // --- SCORING LOGIC CHANGE START ---
-                // 1. 완벽히 일치하는 경우: 1점
                 if (maleAnswerNode.value === femaleAnswerNode.value) {
                     totalScore += 1;
                 } else {
-                    // 2. 답변은 다르지만, 성향 그룹이 같은 경우: 0.5점
                     const maleGroup = findTagGroup(maleTag);
                     const femaleGroup = findTagGroup(femaleTag);
                     if (maleGroup && maleGroup === femaleGroup) {
                         totalScore += 0.5;
                     }
-                    // 3. 성향 그룹도 다르면 0점 (아무것도 더하지 않음)
                 }
-                // --- SCORING LOGIC CHANGE END ---
                 
                 maleTags[maleTag] = (maleTags[maleTag] || 0) + 1;
                 femaleTags[femaleTag] = (femaleTags[femaleTag] || 0) + 1;
@@ -424,5 +441,4 @@
     </script>
 </body>
 </html>
-
 
